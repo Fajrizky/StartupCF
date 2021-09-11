@@ -20,20 +20,13 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 
-	// userInput := user.RegisterUserInput{}
-	// userInput.Name = "John Wick"
-	// userInput.Email = "film@ga.tau"
-	// userInput.Occupation = "actor"
-	// userInput.Password = "secret"
-
-	// userService.RegisterUser(userInput)
-
 	userHandler := handler.NewUserHandler(userService)
 
 	router := gin.Default()
 	api := router.Group("/api/v1")
 
 	api.POST("/users", userHandler.RegisterUser)
+	api.POST("/sessions", userHandler.Login)
 
 	router.Run()
 }
